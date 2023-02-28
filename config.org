@@ -147,19 +147,27 @@ Super - Control - <arrow>
 One of the main selling points of Emacs! no Emacs distribution is complete without sensible and well-defined org-mode defaults
 ** Code
 #+BEGIN_SRC emacs-lisp
-(use-package org
-  :config
-  (add-hook 'org-mode-hook 'org-indent-mode)
-  (add-hook 'org-mode-hook
-            '(lambda ()
-               (visual-line-mode 1))))
+  (use-package org
+    :config
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t)
+       (lisp . t)))
+    (setq org-babel-lisp-eval-fn "sly-eval")
+    (add-hook 'org-mode-hook 'org-indent-mode)
+    (add-hook 'org-mode-hook
+              '(lambda ()
+                 (visual-line-mode 1))))
 
-(use-package org-indent
-  :diminish org-indent-mode)
+  (use-package org-indent
+    :diminish org-indent-mode)
 
-(use-package htmlize
-  :ensure t)
+  (use-package htmlize
+    :ensure t)
 #+END_SRC
+
+#+RESULTS:
+
 * Eshell
 ** Why Eshell?
 We are using Emacs, so we might as well implement as many tools from our workflow into it as possible
@@ -663,6 +671,12 @@ I use meghanada to provide very neat autocompletion when editing Java files. I u
               (meghanada-mode t)))
   (setq meghanada-java-path "java")
   (setq meghanada-maven-path "mvn"))
+#+END_SRC
+
+** Common Lisp
+#+BEGIN_SRC emacs-lisp
+  (use-package sly
+    :config (setq inferior-lisp-program "/bin/sbcl"))
 #+END_SRC
 * Formatting
 Formats org src blocks on "C-i"

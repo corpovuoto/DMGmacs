@@ -673,6 +673,16 @@ I use meghanada to provide very neat autocompletion when editing Java files. I u
   (setq meghanada-maven-path "mvn"))
 #+END_SRC
 
+** LSP
+#+begin_src emacs-lisp
+(use-package lsp
+:hook
+((c-mode c++-mode rust-mode) . lsp))
+#+end_src
+
+#+RESULTS:
+| lsp |
+
 ** Common Lisp
 #+BEGIN_SRC emacs-lisp
   (use-package sly
